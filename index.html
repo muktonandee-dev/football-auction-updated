@@ -1,0 +1,3099 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Football Auction</title>
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #07111f;
+    color: white;
+}
+
+button {
+    border: 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    opacity: .88;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.center {
+    text-align: center;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+    background: #0b1929;
+    border-bottom: 1px solid #20364e;
+    padding: 18px 25px;
+}
+
+.header-inner {
+    max-width: 1250px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.logo span {
+    color: #22c55e;
+}
+
+nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+nav button {
+    background: #14283e;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 7px;
+}
+
+nav button:hover {
+    background: #1c3a59;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page {
+    display: none;
+    max-width: 1250px;
+    margin: auto;
+    padding: 35px 20px;
+}
+
+.page.active {
+    display: block;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    text-align: center;
+    padding: 50px 10px;
+}
+
+.hero h1 {
+    font-size: 52px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #b8c7d9;
+    font-size: 18px;
+}
+
+.hero-buttons {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.hero-buttons button {
+    padding: 15px 25px;
+    border-radius: 9px;
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+}
+
+.blue {
+    background: #1683ff;
+}
+
+.green {
+    background: #16a34a;
+}
+
+.red {
+    background: #dc2626;
+}
+
+.gold {
+    background: #c58b00;
+}
+
+.gray {
+    background: #334155;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card {
+    background: #0d1b2a;
+    border: 1px solid #243b53;
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+.grid2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media(max-width: 900px) {
+
+    .grid4,
+    .grid3,
+    .grid2 {
+        grid-template-columns: 1fr;
+    }
+
+    .header-inner {
+        flex-direction: column;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+}
+
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+.form-box {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 17px;
+    background: #07111f;
+    color: white;
+    border: 1px solid #36516d;
+    border-radius: 7px;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-color: #1683ff;
+}
+
+.form-message {
+    min-height: 25px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    text-align: center;
+    padding: 25px;
+    background: #101f32;
+    border-radius: 12px;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 900;
+    margin: 10px 0;
+}
+
+.muted {
+    color: #9fb0c3;
+}
+
+
+/* =========================================================
+   TEAM
+========================================================= */
+
+.team-card {
+    text-align: center;
+}
+
+.team-name {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.points {
+    font-size: 30px;
+    font-weight: 900;
+    margin: 10px;
+}
+
+.team-players {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.team-player {
+    padding: 10px;
+    background: #14283e;
+    border-radius: 7px;
+    margin-bottom: 7px;
+}
+
+
+/* =========================================================
+   AUCTION
+========================================================= */
+
+.auction-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+}
+
+@media(max-width: 850px) {
+    .auction-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.auction-player {
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.player-avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: #19324d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+    margin-bottom: 20px;
+}
+
+.auction-player-name {
+    font-size: 40px;
+    margin: 5px;
+}
+
+.position-badge {
+    display: inline-block;
+    background: #19324d;
+    padding: 8px 16px;
+    border-radius: 30px;
+    margin: 10px;
+}
+
+.star-badge {
+    background: #c58b00;
+}
+
+.current-bid {
+    font-size: 55px;
+    font-weight: 900;
+    margin: 15px;
+}
+
+.leading {
+    color: #22c55e;
+    font-size: 20px;
+}
+
+.timer {
+    font-size: 65px;
+    font-weight: 900;
+    margin: 15px;
+}
+
+.timer.warning {
+    color: #facc15;
+}
+
+.timer.danger {
+    color: #ef4444;
+}
+
+
+/* =========================================================
+   OWNER BIDDING
+========================================================= */
+
+.bid-panel {
+    position: sticky;
+    top: 15px;
+}
+
+.bid-button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 17px;
+    font-size: 17px;
+    border-radius: 9px;
+    background: #1683ff;
+    color: white;
+}
+
+.bid-button:disabled {
+    background: #334155;
+    cursor: not-allowed;
+    opacity: .6;
+}
+
+.bid-history {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.bid-row {
+    display: flex;
+    justify-content: space-between;
+    background: #14283e;
+    padding: 10px;
+    border-radius: 7px;
+    margin-bottom: 7px;
+}
+
+
+/* =========================================================
+   ADMIN
+========================================================= */
+
+.admin-panel {
+    border: 1px solid #7c5b00;
+}
+
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-buttons button {
+    padding: 12px 20px;
+    border-radius: 7px;
+    background: #19324d;
+    color: white;
+}
+
+.player-select {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+@media(max-width: 700px) {
+    .player-select {
+        grid-template-columns: 1fr;
+    }
+}
+
+.admin-player {
+    background: #14283e;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.admin-player:hover {
+    background: #1d3b59;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #29445e;
+    text-align: left;
+}
+
+@media(max-width: 650px) {
+
+    table {
+        font-size: 13px;
+    }
+
+    th,
+    td {
+        padding: 8px;
+    }
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    padding: 15px 20px;
+    background: #16a34a;
+    color: white;
+    border-radius: 8px;
+    display: none;
+    z-index: 9999;
+}
+
+.toast.show {
+    display: block;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================================
+     HEADER
+======================================================== -->
+
+<header>
+
+<div class="header-inner">
+
+<div class="logo">
+⚽ <span>Football</span> Auction
+</div>
+
+<nav>
+
+<button onclick="showPage('home')">
+Home
+</button>
+
+<button onclick="showPage('playerRegister')">
+Player Registration
+</button>
+
+<button onclick="showPage('playerLogin')">
+Player Login
+</button>
+
+<button onclick="showPage('ownerRegister')">
+Owner Registration
+</button>
+
+<button onclick="showPage('ownerLogin')">
+Owner Login
+</button>
+
+<button onclick="showPage('adminLogin')">
+Admin
+</button>
+
+</nav>
+
+</div>
+
+</header>
+
+
+<!-- ========================================================
+     HOME
+======================================================== -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<h1>⚽ FOOTBALL AUCTION</h1>
+
+<p>
+4 Teams • 10,000 Points Each • 7 Players Per Team
+</p>
+
+<div class="hero-buttons">
+
+<button
+class="btn blue"
+onclick="showPage('playerRegister')">
+
+🧑 Register as Player
+
+</button>
+
+<button
+class="btn green"
+onclick="showPage('ownerRegister')">
+
+👑 Apply as Owner
+
+</button>
+
+<button
+class="btn gold"
+onclick="showPage('ownerLogin')">
+
+🔐 Owner Login
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>🏆 Tournament Rules</h2>
+
+<div class="grid grid2">
+
+<div>
+
+<p>💰 Every team starts with <strong>10,000 points</strong>.</p>
+
+<p>👥 Every team must have <strong>7 players</strong>.</p>
+
+<p>⭐ One Star Player is assigned to each team for 0 points.</p>
+
+<p>🧤 Goalkeepers are auctioned separately.</p>
+
+</div>
+
+<div>
+
+<p>🛡 Defenders are auctioned separately.</p>
+
+<p>🎯 Midfielders are auctioned separately.</p>
+
+<p>⚡ Strikers/Wings are auctioned separately.</p>
+
+<p>⏱ The admin controls the auction timer.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ========================================================
+     PLAYER REGISTRATION
+======================================================== -->
+
+<section id="playerRegister" class="page">
+
+<div class="card form-box">
+
+<h2>🧑 Player Registration</h2>
+
+<p class="muted">
+Create your personal player account.
+</p>
+
+<form onsubmit="registerPlayer(event)">
+
+<label>Full Name</label>
+
+<input
+id="registerPlayerName"
+required
+placeholder="Enter your name">
+
+<label>Player ID</label>
+
+<input
+id="registerPlayerId"
+required
+placeholder="PLR001">
+
+<label>Password</label>
+
+<input
+id="registerPlayerPassword"
+type="password"
+required
+placeholder="Create password">
+
+<label>Position</label>
+
+<select id="registerPlayerPosition">
+
+<option value="GK">Goalkeeper (GK)</option>
+
+<option value="DEF">Defender (DEF)</option>
+
+<option value="MF">Midfielder (MF)</option>
+
+<option value="ST">Striker (ST)</option>
+
+<option value="WING">Wing (WING)</option>
+
+</select>
+
+<label>Phone</label>
+
+<input
+id="registerPlayerPhone"
+placeholder="Optional">
+
+<button
+class="btn blue"
+style="width:100%">
+
+Create Player Account
+
+</button>
+
+</form>
+
+<p
+id="playerRegisterMessage"
+class="form-message">
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ========================================================
+     PLAYER LOGIN
+======================================================== -->
+
+<section id="playerLogin" class="page">
+
+<div class="card form-box">
+
+<h2>🔐 Player Login</h2>
+
+<form onsubmit="playerLogin(event)">
+
+<label>Player ID</label>
+
+<input
+id="playerLoginId"
+required
+placeholder="PLR001">
+
+<label>Password</label>
+
+<input
+id="playerLoginPassword"
+type="password"
+required>
+
+<button
+class="btn blue"
+style="width:100%">
+
+Login
+
+</button>
+
+</form>
+
+<p
+id="playerLoginMessage"
+class="form-message">
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ========================================================
+     PLAYER DASHBOARD
+======================================================== -->
+
+<section id="playerDashboard" class="page">
+
+<div class="card">
+
+<div class="dashboard-header">
+
+<div>
+
+<h2>
+🧑 Player Dashboard
+</h2>
+
+<p id="playerWelcome"></p>
+
+</div>
+
+<button
+class="btn red"
+onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="grid grid4">
+
+<div class="stat">
+
+<div class="muted">
+Player ID
+</div>
+
+<div
+id="profilePlayerId"
+class="stat-number">
+
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="muted">
+Position
+</div>
+
+<div
+id="profilePosition"
+class="stat-number">
+
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="muted">
+Auction Status
+</div>
+
+<div
+id="profileStatus"
+class="stat-number">
+
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="muted">
+Team
+</div>
+
+<div
+id="profileTeam"
+class="stat-number">
+
+-
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📋 My Auction Information</h2>
+
+<div id="playerAuctionInfo">
+
+No auction information yet.
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ========================================================
+     OWNER REGISTRATION
+======================================================== -->
+
+<section id="ownerRegister" class="page">
+
+<div class="card form-box">
+
+<h2>👑 Owner Application</h2>
+
+<p class="muted">
+Submit your application to become a team owner/captain.
+</p>
+
+<form onsubmit="registerOwner(event)">
+
+<label>Owner Name</label>
+
+<input
+id="registerOwnerName"
+required
+placeholder="Your name">
+
+<label>Owner ID</label>
+
+<input
+id="registerOwnerId"
+required
+placeholder="OWN001">
+
+<label>Password</label>
+
+<input
+id="registerOwnerPassword"
+type="password"
+required
+placeholder="Create password">
+
+<label>Preferred Team Name</label>
+
+<input
+id="registerTeamName"
+placeholder="Example: Thunder FC">
+
+<button
+class="btn green"
+style="width:100%">
+
+Submit Owner Application
+
+</button>
+
+</form>
+
+<p
+id="ownerRegisterMessage"
+class="form-message">
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ========================================================
+     OWNER LOGIN
+======================================================== -->
+
+<section id="ownerLogin" class="page">
+
+<div class="card form-box">
+
+<h2>👑 Owner Login</h2>
+
+<form onsubmit="ownerLogin(event)">
+
+<label>Owner ID</label>
+
+<input
+id="ownerLoginId"
+required
+placeholder="OWN001">
+
+<label>Password</label>
+
+<input
+id="ownerLoginPassword"
+type="password"
+required>
+
+<button
+class="btn green"
+style="width:100%">
+
+Login
+
+</button>
+
+</form>
+
+<p
+id="ownerLoginMessage"
+class="form-message">
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ========================================================
+     OWNER DASHBOARD
+======================================================== -->
+
+<section id="ownerDashboard" class="page">
+
+<div class="card">
+
+<div class="dashboard-header">
+
+<div>
+
+<h2>
+👑 Owner Dashboard
+</h2>
+
+<p id="ownerWelcome"></p>
+
+</div>
+
+<button
+class="btn red"
+onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="grid grid3">
+
+<div class="stat">
+
+<div class="muted">
+Team
+</div>
+
+<div
+id="ownerTeamName"
+class="stat-number">
+
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="muted">
+Points Remaining
+</div>
+
+<div
+id="ownerPoints"
+class="stat-number">
+
+10,000
+
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="muted">
+Squad
+</div>
+
+<div
+id="ownerSquadCount"
+class="stat-number">
+
+0 / 7
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>⭐ Star Player</h2>
+
+<div id="ownerStarPlayer">
+Not assigned yet.
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>👥 My Squad</h2>
+
+<div id="ownerSquad">
+No players purchased yet.
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>🔴 Auction Status</h2>
+
+<div id="ownerAuctionStatus">
+
+Auction has not started.
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ========================================================
+     ADMIN LOGIN
+======================================================== -->
+
+<section id="adminLogin" class="page">
+
+<div class="card form-box">
+
+<h2>🏛 Admin / Host Login</h2>
+
+<p class="muted">
+Only the tournament host should access this panel.
+</p>
+
+<form onsubmit="adminLogin(event)">
+
+<label>Admin Password</label>
+
+<input
+id="adminPassword"
+type="password"
+required
+placeholder="Enter admin password">
+
+<button
+class="btn gold"
+style="width:100%">
+
+Enter Host Panel
+
+</button>
+
+</form>
+
+<p
+id="adminLoginMessage"
+class="form-message">
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ========================================================
+     ADMIN HOST PANEL
+======================================================== -->
+
+<section id="adminDashboard" class="page">
+
+<div class="card admin-panel">
+
+<div class="dashboard-header">
+
+<div>
+
+<h2>🏛 AUCTION HOST PANEL</h2>
+
+<p class="muted">
+The host controls the live auction.
+</p>
+
+</div>
+
+<button
+class="btn red"
+onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- CURRENT AUCTION -->
+
+<div class="auction-layout">
+
+<div>
+
+<div
+class="card auction-player"
+id="adminAuctionCard">
+
+<div class="player-avatar">
+⚽
+</div>
+
+<h2>
+Waiting for Player
+</h2>
+
+<p class="muted">
+Select a player below to begin.
+</p>
+
+</div>
+
+
+<div class="card center">
+
+<h2>
+Current Bid
+</h2>
+
+<div
+id="adminCurrentBid"
+class="current-bid">
+
+0
+
+</div>
+
+<div
+id="adminLeadingTeam"
+class="leading">
+
+No bids
+
+</div>
+
+<div
+id="adminTimer"
+class="timer">
+
+30
+
+</div>
+
+</div>
+
+
+<div class="card center">
+
+<button
+class="btn green"
+onclick="startAuction()">
+
+▶ START / RESTART TIMER
+
+</button>
+
+<button
+class="btn red"
+onclick="sellCurrentPlayer()">
+
+🔨 SELL PLAYER
+
+</button>
+
+<button
+class="btn gray"
+onclick="unsoldCurrentPlayer()">
+
+UNSOLD
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ADMIN SIDE -->
+
+<div>
+
+<div class="card">
+
+<h2>📂 Load Player</h2>
+
+<p class="muted">
+Choose category.
+</p>
+
+<div class="category-buttons">
+
+<button onclick="showAdminCategory('GK')">
+GK
+</button>
+
+<button onclick="showAdminCategory('DEF')">
+DEF
+</button>
+
+<button onclick="showAdminCategory('MF')">
+MF
+</button>
+
+<button onclick="showAdminCategory('ST')">
+ST
+</button>
+
+<button onclick="showAdminCategory('WING')">
+WING
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>Players</h2>
+
+<div
+id="adminPlayerList"
+class="player-select">
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📜 Bid History</h2>
+
+<div
+id="adminBidHistory"
+class="bid-history">
+
+No bids yet.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- TEAMS -->
+
+<div class="card">
+
+<h2>🏆 Teams</h2>
+
+<div
+id="adminTeams"
+class="grid grid4">
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ========================================================
+     TOAST
+======================================================== -->
+
+<div
+id="toast"
+class="toast">
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   DATABASE
+   Browser localStorage
+========================================================= */
+
+const STORAGE_KEY = "footballAuctionData";
+
+
+let database = JSON.parse(
+    localStorage.getItem(STORAGE_KEY)
+) || {
+
+    players: [],
+
+    owners: [],
+
+    teams: [
+
+        {
+            id: 1,
+            name: "Team Alpha",
+            ownerId: null,
+            points: 10000,
+            players: [],
+            starPlayer: null
+        },
+
+        {
+            id: 2,
+            name: "Team Bravo",
+            ownerId: null,
+            points: 10000,
+            players: [],
+            starPlayer: null
+        },
+
+        {
+            id: 3,
+            name: "Team Charlie",
+            ownerId: null,
+            points: 10000,
+            players: [],
+            starPlayer: null
+        },
+
+        {
+            id: 4,
+            name: "Team Delta",
+            ownerId: null,
+            points: 10000,
+            players: [],
+            starPlayer: null
+        }
+
+    ]
+
+};
+
+
+/* =========================================================
+   AUCTION STATE
+========================================================= */
+
+let currentPlayer = null;
+
+let currentBid = 0;
+
+let currentLeader = null;
+
+let auctionTimer = 30;
+
+let auctionInterval = null;
+
+let selectedCategory = null;
+
+let currentUser = null;
+
+let currentRole = null;
+
+let bidHistory = [];
+
+
+/* =========================================================
+   SAVE DATABASE
+========================================================= */
+
+function saveDatabase() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(database)
+    );
+
+}
+
+
+/* =========================================================
+   PAGE SYSTEM
+========================================================= */
+
+function showPage(pageId) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
+
+            page.classList.remove("active");
+
+        });
+
+
+    const page =
+        document.getElementById(pageId);
+
+
+    if (page) {
+
+        page.classList.add("active");
+
+    }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message) {
+
+    const element =
+        document.getElementById("toast");
+
+    element.innerText = message;
+
+    element.classList.add("show");
+
+    setTimeout(() => {
+
+        element.classList.remove("show");
+
+    }, 2500);
+
+}
+
+
+/* =========================================================
+   PLAYER REGISTRATION
+========================================================= */
+
+function registerPlayer(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById(
+            "registerPlayerName"
+        ).value.trim();
+
+
+    const id =
+        document.getElementById(
+            "registerPlayerId"
+        ).value.trim().toUpperCase();
+
+
+    const password =
+        document.getElementById(
+            "registerPlayerPassword"
+        ).value;
+
+
+    const position =
+        document.getElementById(
+            "registerPlayerPosition"
+        ).value;
+
+
+    const phone =
+        document.getElementById(
+            "registerPlayerPhone"
+        ).value.trim();
+
+
+    if (
+        database.players.some(
+            player => player.id === id
+        )
+    ) {
+
+        document.getElementById(
+            "playerRegisterMessage"
+        ).innerText =
+            "Player ID already exists.";
+
+        return;
+
+    }
+
+
+    database.players.push({
+
+        id: id,
+
+        name: name,
+
+        password: password,
+
+        position: position,
+
+        phone: phone,
+
+        status: "Available",
+
+        star: false,
+
+        teamId: null,
+
+        price: 0
+
+    });
+
+
+    saveDatabase();
+
+
+    document.getElementById(
+        "playerRegisterMessage"
+    ).innerText =
+        "Player account created successfully!";
+
+
+    event.target.reset();
+
+    toast("Player account created.");
+
+}
+
+
+/* =========================================================
+   PLAYER LOGIN
+========================================================= */
+
+function playerLogin(event) {
+
+    event.preventDefault();
+
+
+    const id =
+        document.getElementById(
+            "playerLoginId"
+        ).value.trim().toUpperCase();
+
+
+    const password =
+        document.getElementById(
+            "playerLoginPassword"
+        ).value;
+
+
+    const player =
+        database.players.find(
+            p =>
+                p.id === id &&
+                p.password === password
+        );
+
+
+    if (!player) {
+
+        document.getElementById(
+            "playerLoginMessage"
+        ).innerText =
+            "Invalid Player ID or password.";
+
+        return;
+
+    }
+
+
+    currentUser = player.id;
+
+    currentRole = "player";
+
+
+    loadPlayerDashboard();
+
+    showPage("playerDashboard");
+
+}
+
+
+/* =========================================================
+   PLAYER DASHBOARD
+========================================================= */
+
+function loadPlayerDashboard() {
+
+    const player =
+        database.players.find(
+            p => p.id === currentUser
+        );
+
+
+    if (!player)
+        return;
+
+
+    document.getElementById(
+        "playerWelcome"
+    ).innerText =
+        "Welcome, " + player.name;
+
+
+    document.getElementById(
+        "profilePlayerId"
+    ).innerText =
+        player.id;
+
+
+    document.getElementById(
+        "profilePosition"
+    ).innerText =
+        player.position;
+
+
+    document.getElementById(
+        "profileStatus"
+    ).innerText =
+        player.status;
+
+
+    const team =
+        database.teams.find(
+            t => t.id === player.teamId
+        );
+
+
+    document.getElementById(
+        "profileTeam"
+    ).innerText =
+        team ? team.name : "-";
+
+
+    if (player.price > 0) {
+
+        document.getElementById(
+            "playerAuctionInfo"
+        ).innerHTML = `
+
+            <p>
+            <strong>Sold To:</strong>
+            ${team ? team.name : "-"}
+            </p>
+
+            <p>
+            <strong>Winning Bid:</strong>
+            ${player.price.toLocaleString()} points
+            </p>
+
+        `;
+
+    } else if (player.star) {
+
+        document.getElementById(
+            "playerAuctionInfo"
+        ).innerHTML = `
+
+            <p class="star-badge position-badge">
+            ⭐ STAR PLAYER
+            </p>
+
+            <p>
+            Your Star Player assignment is free.
+            </p>
+
+        `;
+
+    } else {
+
+        document.getElementById(
+            "playerAuctionInfo"
+        ).innerText =
+            "You have not been sold yet.";
+
+    }
+
+}
+
+
+/* =========================================================
+   OWNER REGISTRATION
+========================================================= */
+
+function registerOwner(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById(
+            "registerOwnerName"
+        ).value.trim();
+
+
+    const id =
+        document.getElementById(
+            "registerOwnerId"
+        ).value.trim().toUpperCase();
+
+
+    const password =
+        document.getElementById(
+            "registerOwnerPassword"
+        ).value;
+
+
+    const preferredTeam =
+        document.getElementById(
+            "registerTeamName"
+        ).value.trim();
+
+
+    if (
+        database.owners.some(
+            owner => owner.id === id
+        )
+    ) {
+
+        document.getElementById(
+            "ownerRegisterMessage"
+        ).innerText =
+            "Owner ID already exists.";
+
+        return;
+
+    }
+
+
+    database.owners.push({
+
+        id: id,
+
+        name: name,
+
+        password: password,
+
+        preferredTeam: preferredTeam,
+
+        approved: false,
+
+        teamId: null
+
+    });
+
+
+    saveDatabase();
+
+
+    document.getElementById(
+        "ownerRegisterMessage"
+    ).innerText =
+        "Owner application submitted. Admin approval is required.";
+
+
+    event.target.reset();
+
+}
+
+
+/* =========================================================
+   OWNER LOGIN
+========================================================= */
+
+function ownerLogin(event) {
+
+    event.preventDefault();
+
+
+    const id =
+        document.getElementById(
+            "ownerLoginId"
+        ).value.trim().toUpperCase();
+
+
+    const password =
+        document.getElementById(
+            "ownerLoginPassword"
+        ).value;
+
+
+    const owner =
+        database.owners.find(
+            o =>
+                o.id === id &&
+                o.password === password
+        );
+
+
+    if (!owner) {
+
+        document.getElementById(
+            "ownerLoginMessage"
+        ).innerText =
+            "Invalid Owner ID or password.";
+
+        return;
+
+    }
+
+
+    if (!owner.approved) {
+
+        document.getElementById(
+            "ownerLoginMessage"
+        ).innerText =
+            "Your owner application has not been approved yet.";
+
+        return;
+
+    }
+
+
+    if (!owner.teamId) {
+
+        document.getElementById(
+            "ownerLoginMessage"
+        ).innerText =
+            "Admin has not assigned a team to you yet.";
+
+        return;
+
+    }
+
+
+    currentUser = owner.id;
+
+    currentRole = "owner";
+
+
+    loadOwnerDashboard();
+
+    showPage("ownerDashboard");
+
+}
+
+
+/* =========================================================
+   OWNER DASHBOARD
+========================================================= */
+
+function loadOwnerDashboard() {
+
+    const owner =
+        database.owners.find(
+            o => o.id === currentUser
+        );
+
+
+    if (!owner)
+        return;
+
+
+    const team =
+        database.teams.find(
+            t => t.id === owner.teamId
+        );
+
+
+    if (!team)
+        return;
+
+
+    document.getElementById(
+        "ownerWelcome"
+    ).innerText =
+        "Welcome, " + owner.name;
+
+
+    document.getElementById(
+        "ownerTeamName"
+    ).innerText =
+        team.name;
+
+
+    document.getElementById(
+        "ownerPoints"
+    ).innerText =
+        team.points.toLocaleString();
+
+
+    document.getElementById(
+        "ownerSquadCount"
+    ).innerText =
+        `${team.players.length} / 7`;
+
+
+    const star =
+        database.players.find(
+            p => p.id === team.starPlayer
+        );
+
+
+    document.getElementById(
+        "ownerStarPlayer"
+    ).innerHTML =
+        star
+        ? `⭐ ${star.name} — ${star.position}`
+        : "Not assigned yet.";
+
+
+    if (team.players.length === 0) {
+
+        document.getElementById(
+            "ownerSquad"
+        ).innerText =
+            "No players purchased yet.";
+
+    } else {
+
+        document.getElementById(
+            "ownerSquad"
+        ).innerHTML =
+            team.players.map(
+                playerId => {
+
+                    const player =
+                        database.players.find(
+                            p => p.id === playerId
+                        );
+
+                    if (!player)
+                        return "";
+
+                    return `
+
+                        <div class="team-player">
+
+                        <strong>
+                        ${player.name}
+                        </strong>
+
+                        <br>
+
+                        <span class="muted">
+                        ${player.position}
+                        —
+                        ${player.price.toLocaleString()} points
+                        </span>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+
+    if (currentPlayer) {
+
+        document.getElementById(
+            "ownerAuctionStatus"
+        ).innerHTML = `
+
+            <strong>
+            🔴 LIVE AUCTION
+            </strong>
+
+            <p>
+            Player:
+            ${currentPlayer.name}
+            </p>
+
+            <p>
+            Current Bid:
+            ${currentBid.toLocaleString()}
+            </p>
+
+            <p>
+            Leading:
+            ${currentLeader || "No bids"}
+            </p>
+
+        `;
+
+    } else {
+
+        document.getElementById(
+            "ownerAuctionStatus"
+        ).innerText =
+            "No player is currently being auctioned.";
+
+    }
+
+}
+
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+function adminLogin(event) {
+
+    event.preventDefault();
+
+
+    const password =
+        document.getElementById(
+            "adminPassword"
+        ).value;
+
+
+    /*
+       DEMO ADMIN PASSWORD
+
+       Change this before testing.
+    */
+
+    if (password !== "admin123") {
+
+        document.getElementById(
+            "adminLoginMessage"
+        ).innerText =
+            "Incorrect admin password.";
+
+        return;
+
+    }
+
+
+    currentUser = "ADMIN";
+
+    currentRole = "admin";
+
+
+    loadAdminDashboard();
+
+    showPage("adminDashboard");
+
+}
+
+
+/* =========================================================
+   ADMIN DASHBOARD
+========================================================= */
+
+function loadAdminDashboard() {
+
+    renderAdminPlayers();
+
+    renderAdminTeams();
+
+    renderBidHistory();
+
+}
+
+
+/* =========================================================
+   SHOW CATEGORY
+========================================================= */
+
+function showAdminCategory(category) {
+
+    selectedCategory = category;
+
+    renderAdminPlayers();
+
+}
+
+
+/* =========================================================
+   ADMIN PLAYER LIST
+========================================================= */
+
+function renderAdminPlayers() {
+
+    const container =
+        document.getElementById(
+            "adminPlayerList"
+        );
+
+
+    let filtered =
+        database.players.filter(
+            player =>
+                player.position === selectedCategory &&
+                player.status === "Available" &&
+                !player.star
+        );
+
+
+    if (!selectedCategory) {
+
+        container.innerHTML =
+            "<p class='muted'>Select a category first.</p>";
+
+        return;
+
+    }
+
+
+    if (filtered.length === 0) {
+
+        container.innerHTML =
+            "<p class='muted'>No available players in this category.</p>";
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        filtered.map(
+            player => `
+
+                <div
+                class="admin-player"
+                onclick="loadAuctionPlayer('${player.id}')">
+
+                    <strong>
+                    ${player.name}
+                    </strong>
+
+                    <br>
+
+                    <span class="muted">
+                    ${player.id}
+                    —
+                    ${player.position}
+                    </span>
+
+                </div>
+
+            `
+        ).join("");
+
+}
+
+
+/* =========================================================
+   LOAD PLAYER INTO AUCTION
+========================================================= */
+
+function loadAuctionPlayer(playerId) {
+
+    if (currentPlayer) {
+
+        const confirmChange =
+            confirm(
+                "There is already a player in the auction. Load another player?"
+            );
+
+        if (!confirmChange)
+            return;
+
+        clearInterval(auctionInterval);
+
+    }
+
+
+    const player =
+        database.players.find(
+            p => p.id === playerId
+        );
+
+
+    if (!player)
+        return;
+
+
+    currentPlayer = player;
+
+    currentBid = 500;
+
+    currentLeader = null;
+
+    bidHistory = [];
+
+    auctionTimer = 30;
+
+
+    player.status =
+        "Live Auction";
+
+
+    saveDatabase();
+
+
+    renderAuctionCard();
+
+    renderBidHistory();
+
+    updateAdminAuction();
+
+    updateOwnerDashboards();
+
+
+    toast(
+        player.name + " loaded into auction."
+    );
+
+}
+
+
+/* =========================================================
+   RENDER AUCTION CARD
+========================================================= */
+
+function renderAuctionCard() {
+
+    const container =
+        document.getElementById(
+            "adminAuctionCard"
+        );
+
+
+    if (!currentPlayer) {
+
+        container.innerHTML = `
+
+            <div class="player-avatar">
+            ⚽
+            </div>
+
+            <h2>
+            Waiting for Player
+            </h2>
+
+        `;
+
+        return;
+
+    }
+
+
+    const initials =
+        currentPlayer.name
+        .split(" ")
+        .map(x => x[0])
+        .slice(0, 2)
+        .join("");
+
+
+    container.innerHTML = `
+
+        <div class="player-avatar">
+        ${initials}
+        </div>
+
+        <h2 class="auction-player-name">
+        ${currentPlayer.name}
+        </h2>
+
+        <div class="position-badge">
+        ${currentPlayer.position}
+        </div>
+
+        <p class="muted">
+        Player ID: ${currentPlayer.id}
+        </p>
+
+        <p>
+        Starting Bid:
+        <strong>500 points</strong>
+        </p>
+
+    `;
+
+}
+
+
+/* =========================================================
+   START AUCTION TIMER
+========================================================= */
+
+function startAuction() {
+
+    if (!currentPlayer) {
+
+        alert(
+            "Load a player first."
+        );
+
+        return;
+
+    }
+
+
+    clearInterval(auctionInterval);
+
+
+    auctionTimer = 30;
+
+
+    updateTimer();
+
+
+    auctionInterval =
+        setInterval(
+            () => {
+
+                auctionTimer--;
+
+                updateTimer();
+
+
+                if (
+                    auctionTimer <= 0
+                ) {
+
+                    clearInterval(
+                        auctionInterval
+                    );
+
+
+                    if (currentLeader) {
+
+                        sellCurrentPlayer();
+
+                    } else {
+
+                        unsoldCurrentPlayer();
+
+                    }
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+/* =========================================================
+   TIMER DISPLAY
+========================================================= */
+
+function updateTimer() {
+
+    const timer =
+        document.getElementById(
+            "adminTimer"
+        );
+
+
+    timer.innerText =
+        auctionTimer;
+
+
+    timer.classList.remove(
+        "warning",
+        "danger"
+    );
+
+
+    if (
+        auctionTimer <= 10
+    ) {
+
+        timer.classList.add(
+            "danger"
+        );
+
+    } else if (
+        auctionTimer <= 20
+    ) {
+
+        timer.classList.add(
+            "warning"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   UPDATE ADMIN BID DISPLAY
+========================================================= */
+
+function updateAdminAuction() {
+
+    document.getElementById(
+        "adminCurrentBid"
+    ).innerText =
+        currentBid.toLocaleString();
+
+
+    document.getElementById(
+        "adminLeadingTeam"
+    ).innerText =
+        currentLeader
+        ? "Leading: " + currentLeader
+        : "No bids yet";
+
+
+    updateTimer();
+
+}
+
+
+/* =========================================================
+   OWNER BID
+========================================================= */
+
+function ownerBid() {
+
+    if (
+        currentRole !== "owner"
+    ) {
+
+        return;
+
+    }
+
+
+    if (!currentPlayer) {
+
+        toast(
+            "No player is currently available."
+        );
+
+        return;
+
+    }
+
+
+    const owner =
+        database.owners.find(
+            o => o.id === currentUser
+        );
+
+
+    if (!owner)
+        return;
+
+
+    const team =
+        database.teams.find(
+            t => t.id === owner.teamId
+        );
+
+
+    if (!team)
+        return;
+
+
+    if (
+        team.players.length >= 7
+    ) {
+
+        toast(
+            "Your squad is already full."
+        );
+
+        return;
+
+    }
+
+
+    const remainingSlots =
+        7 - team.players.length - 1;
+
+
+    /*
+       Keep at least 500 points
+       available for every remaining
+       squad position.
+    */
+
+    const reserve =
+        remainingSlots * 500;
+
+
+    const nextBid =
+        currentBid + 500;
+
+
+    if (
+        team.points - nextBid < reserve
+    ) {
+
+        toast(
+            "You cannot afford this bid while keeping your required reserve."
+        );
+
+        return;
+
+    }
+
+
+    currentBid =
+        nextBid;
+
+
+    currentLeader =
+        team.name;
+
+
+    bidHistory.push({
+
+        team: team.name,
+
+        amount: currentBid,
+
+        time: new Date()
+            .toLocaleTimeString()
+
+    });
+
+
+    /*
+       Give bidders 10 seconds after
+       a new bid.
+    */
+
+    auctionTimer = 10;
+
+
+    renderBidHistory();
+
+    updateAdminAuction();
+
+    updateOwnerDashboards();
+
+
+    toast(
+        team.name +
+        " bid " +
+        currentBid.toLocaleString() +
+        " points."
+    );
+
+}
+
+
+/* =========================================================
+   OWNER BID PANEL
+========================================================= */
+
+function createOwnerBidButton() {
+
+    /*
+       The owner dashboard uses this function
+       when the auction is live.
+    */
+
+}
+
+
+/* =========================================================
+   ADD BID BUTTON TO OWNER PAGE
+========================================================= */
+
+function updateOwnerDashboards() {
+
+    if (
+        currentRole === "owner"
+    ) {
+
+        loadOwnerDashboard();
+
+    }
+
+
+    /*
+       Update owner status for the
+       current owner even when admin
+       is logged in.
+    */
+
+}
+
+
+/* =========================================================
+   SELL PLAYER
+========================================================= */
+
+function sellCurrentPlayer() {
+
+    if (!currentPlayer)
+        return;
+
+
+    clearInterval(
+        auctionInterval
+    );
+
+
+    if (!currentLeader) {
+
+        unsoldCurrentPlayer();
+
+        return;
+
+    }
+
+
+    const team =
+        database.teams.find(
+            t => t.name === currentLeader
+        );
+
+
+    if (!team)
+        return;
+
+
+    /*
+       Final safety check
+    */
+
+    if (
+        team.players.length >= 7
+    ) {
+
+        alert(
+            "This team cannot receive another player."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        team.points < currentBid
+    ) {
+
+        alert(
+            "Team cannot afford this player."
+        );
+
+        return;
+
+    }
+
+
+    team.points -= currentBid;
+
+    team.players.push(
+        currentPlayer.id
+    );
+
+
+    currentPlayer.teamId =
+        team.id;
+
+    currentPlayer.price =
+        currentBid;
+
+    currentPlayer.status =
+        "Sold";
+
+
+    saveDatabase();
+
+
+    alert(
+        currentPlayer.name +
+        " SOLD to " +
+        team.name +
+        " for " +
+        currentBid.toLocaleString() +
+        " points!"
+    );
+
+
+    currentPlayer = null;
+
+    currentBid = 0;
+
+    currentLeader = null;
+
+    bidHistory = [];
+
+
+    renderAuctionCard();
+
+    updateAdminAuction();
+
+    renderAdminPlayers();
+
+    renderAdminTeams();
+
+}
+
+
+/* =========================================================
+   UNSOLD PLAYER
+========================================================= */
+
+function unsoldCurrentPlayer() {
+
+    clearInterval(
+        auctionInterval
+    );
+
+
+    if (currentPlayer) {
+
+        currentPlayer.status =
+            "Unsold";
+
+    }
+
+
+    if (currentPlayer) {
+
+        alert(
+            currentPlayer.name +
+            " is UNSOLD."
+        );
+
+    }
+
+
+    currentPlayer = null;
+
+    currentBid = 0;
+
+    currentLeader = null;
+
+    bidHistory = [];
+
+
+    renderAuctionCard();
+
+    updateAdminAuction();
+
+    renderAdminPlayers();
+
+}
+
+
+/* =========================================================
+   BID HISTORY
+========================================================= */
+
+function renderBidHistory() {
+
+    const container =
+        document.getElementById(
+            "adminBidHistory"
+        );
+
+
+    if (
+        bidHistory.length === 0
+    ) {
+
+        container.innerHTML =
+            "No bids yet.";
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        bidHistory
+        .slice()
+        .reverse()
+        .map(
+            bid => `
+
+                <div class="bid-row">
+
+                    <span>
+                    ${bid.team}
+                    </span>
+
+                    <strong>
+                    ${bid.amount.toLocaleString()}
+                    </strong>
+
+                </div>
+
+            `
+        ).join("");
+
+}
+
+
+/* =========================================================
+   ADMIN TEAM DISPLAY
+========================================================= */
+
+function renderAdminTeams() {
+
+    const container =
+        document.getElementById(
+            "adminTeams"
+        );
+
+
+    container.innerHTML =
+        database.teams.map(
+            team => `
+
+                <div class="card team-card">
+
+                    <div class="team-name">
+                    ${team.name}
+                    </div>
+
+                    <div class="points">
+                    ${team.points.toLocaleString()}
+                    </div>
+
+                    <div class="muted">
+                    Points Remaining
+                    </div>
+
+                    <p>
+                    Squad:
+                    ${team.players.length}/7
+                    </p>
+
+                </div>
+
+            `
+        ).join("");
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout() {
+
+    currentUser = null;
+
+    currentRole = null;
+
+    showPage("home");
+
+    toast("Logged out.");
+
+}
+
+
+/* =========================================================
+   CREATE OWNER BID AREA
+========================================================= */
+
+/*
+   We add the live bidding section
+   dynamically to the owner dashboard.
+*/
+
+function addOwnerAuctionPanel() {
+
+    const existing =
+        document.getElementById(
+            "ownerLiveBidding"
+        );
+
+
+    if (existing)
+        existing.remove();
+
+
+    if (!currentPlayer)
+        return;
+
+
+    const dashboard =
+        document.getElementById(
+            "ownerDashboard"
+        );
+
+
+    const panel =
+        document.createElement(
+            "div"
+        );
+
+
+    panel.id =
+        "ownerLiveBidding";
+
+
+    panel.className =
+        "card";
+
+
+    panel.innerHTML = `
+
+        <div class="center">
+
+            <h2>
+            🔴 LIVE AUCTION
+            </h2>
+
+            <h2>
+            ${currentPlayer.name}
+            </h2>
+
+            <div class="position-badge">
+            ${currentPlayer.position}
+            </div>
+
+            <div class="current-bid">
+            ${currentBid.toLocaleString()}
+            </div>
+
+            <p>
+            Current Bid
+            </p>
+
+            <p class="leading">
+            ${currentLeader
+                ? "Leading: " + currentLeader
+                : "No bids yet"}
+            </p>
+
+            <button
+            class="bid-button"
+            onclick="ownerBid()">
+
+            BID
+            ${(
+                currentBid + 500
+            ).toLocaleString()}
+            POINTS
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    dashboard.appendChild(
+        panel
+    );
+
+}
+
+
+/* =========================================================
+   PERIODIC OWNER REFRESH
+========================================================= */
+
+setInterval(
+    () => {
+
+        if (
+            currentRole === "owner"
+        ) {
+
+            loadOwnerDashboard();
+
+            addOwnerAuctionPanel();
+
+        }
+
+    },
+    1000
+);
+
+
+/* =========================================================
+   INITIAL DATA
+========================================================= */
+
+renderAdminTeams();
+
+</script>
+
+</body>
+
+</html>
