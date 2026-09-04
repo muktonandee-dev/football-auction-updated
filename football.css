@@ -1,0 +1,132 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #07111f;
+    color: white;
+}
+
+header {
+    background: #0d1b2a;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #1d3557;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+.card {
+    background: #0d1b2a;
+    border: 1px solid #243b53;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.login-card {
+    max-width: 450px;
+    margin: 70px auto;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px;
+    margin: 8px 0 18px;
+    border-radius: 7px;
+    border: 1px solid #38536f;
+    background: #07111f;
+    color: white;
+    font-size: 16px;
+}
+
+label {
+    font-weight: bold;
+}
+
+button {
+    border: none;
+    padding: 13px 22px;
+    border-radius: 8px;
+    background: #1683ff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    opacity: .85;
+}
+
+.green {
+    background: #159957;
+}
+
+.red {
+    background: #d62828;
+}
+
+.gold {
+    background: #d4a017;
+}
+
+.center {
+    text-align: center;
+}
+
+.error {
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+.success {
+    color: #4ade80;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.profile {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.stat {
+    background: #07111f;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+@media(max-width: 700px) {
+    .profile {
+        grid-template-columns: 1fr;
+    }
+}
